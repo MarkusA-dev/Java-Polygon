@@ -1,31 +1,32 @@
-package java;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
 	
-	
 	/**
+	 * <h1>Read poly from file</h1>
+	 * <p>Reads the points for the polygon from a file</p>
 	 * @param File name
 	 * @return polygon object
-	 * @throws FileNotFoundException 
 	 */
-	public static Polygon readPolygonFromFile(String fileName) throws FileNotFoundException {
+	public static Polygon readPolygonFromFile(String fileName) {
 		File polyFile = new File(fileName);
-		Scanner readPoly = new Scanner(polyFile);
-		ArrayList<Float> polyPointFloats = new ArrayList<Float>();
+		Scanner readPoly;
+		try{readPoly = new Scanner(polyFile);}
+		catch(Exception e) {
+			throw new RuntimeException("The code failed at making a Scanner");
+		}
+		ArrayList<Integer> polyPointFloats = new ArrayList<Integer>();
 		while(readPoly.hasNext()) {
-			polyPointFloats.add(readPoly.nextFloat());
+			polyPointFloats.add(readPoly.nextInt());
 		}
 		
 		int i = 0;
-		float[] polyFloatArr = new float[polyPointFloats.size()];
-		for(Float f : polyPointFloats) {
-			polyFloatArr[i++] = (f != null ? f : Float.NaN);
+		int[] polyFloatArr = new int[polyPointFloats.size()];
+		for(int f : polyPointFloats) {
+			polyFloatArr[i++] = f;
 		}
 		
 		if(polyPointFloats.size() % 2 != 0) {
@@ -38,17 +39,24 @@ public class FileHandler {
 	
 	
 	/**
+	 * <h1>Read points to test from file</h1>
+	 * <p>Reads points from a file and returns an array of points to test</p>
 	 * @param File path
 	 * @return Points to check
-	 * @throws FileNotFoundException 
 	 */
-	public static ArrayList<Point> readPointsFromFile(String fileName) throws FileNotFoundException, IOException {
+	public static ArrayList<Point> readPointsFromFile(String fileName){
 		ArrayList<Point> points = new ArrayList<Point>();
 		
 		File pointFile = new File(fileName);
-		Scanner read = new Scanner(pointFile);
+		Scanner read;
+		try{
+			read = new Scanner(pointFile);
+		}
+		catch(Exception e) {
+			throw new RuntimeException("The code failed at creating a Scanner");
+		}
 		while(read.hasNext()) {
-			Point readPoint = new Point(read.nextFloat(), read.nextFloat());
+			Point readPoint = new Point(read.nextInt(), read.nextInt());
 			points.add(readPoint);
 		}
 		read.close();
@@ -56,20 +64,25 @@ public class FileHandler {
 	}
 	
 	/**
+	 * <h1>Write reports to files</h1>
+	 * <p>Gets an input of strings and file name and writes the array into a file, one line per string</p>
 	 * @param data to write
-	 * @return if succeeded return 1
-	 * @throws IOException 
+	 * @param file path
+	 * @return if succeeded return 1 
 	 */
-	public static boolean writeReportToFile(String[] reports, String fileName) throws IOException {
-		
-		FileWriter writer = new FileWriter(fileName);
-		writer.write("");
-		for(String prep : reports) {
-			writer.append(prep + "\n");
+	public static boolean writeReportToFile(String[] reports, String fileName){
+		try {
+			FileWriter writer = new FileWriter(fileName);
+			 writer.write("");
+				for(String prep : reports) {
+					writer.append(prep + "\n");
+				}
+			writer.close();
 		}
-		writer.close();
-		
-		return false;
+		catch( Exception e ) {
+			throw new RuntimeException();
+		}
+		return true;
 		
 	}
 }

@@ -1,11 +1,16 @@
-package java;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
+
 import java.util.ArrayList;
 
 public class Main {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	/**
+	 * <h1>Main function for the polygon project</h1>
+	 * 
+	 * <p>The main function reads polygons and points and does all the testing, then writes the end file.</p>
+	 */
+	public static void main(String[] args) {
+		//File paths to all the files, may cause problems if the system has a custom set USERPROFILE
 		String polyPath = System.getenv("USERPROFILE") + "\\Desktop\\polygoni.txt";
 		String pointPath = System.getenv("USERPROFILE") + "\\Desktop\\pisteet.txt";
 		String finalPath = System.getenv("USERPROFILE") + "\\Desktop\\selvitys.txt";
@@ -14,6 +19,8 @@ public class Main {
 		Polygon poly = FileHandler.readPolygonFromFile(polyPath);
 		String[] reports = new String[pointsToTest.size()];
 		int i = 0;
+		
+		//Loop through the points and test them, placing a string in the array that will be printed to the file
 		for(Point p : pointsToTest) {
 			Polygon.possiblePosition pos = poly.pointInsidePolygon(p);
 			switch(pos) {
