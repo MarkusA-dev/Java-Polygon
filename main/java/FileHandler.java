@@ -44,7 +44,7 @@ public class FileHandler {
 	 * @param File path
 	 * @return Points to check
 	 */
-	public static ArrayList<Point> readPointsFromFile(String fileName){
+	public static Point[] readPointsFromFile(String fileName){
 		ArrayList<Point> points = new ArrayList<Point>();
 		
 		File pointFile = new File(fileName);
@@ -60,7 +60,12 @@ public class FileHandler {
 			points.add(readPoint);
 		}
 		read.close();
-		return points;
+		Point[] pointarr = new Point[points.size()];
+		int i = 0;
+		for(Point p : points) {
+			pointarr[i++] = p;
+		}
+		return pointarr;
 	}
 	
 	/**
@@ -85,4 +90,29 @@ public class FileHandler {
 		return true;
 		
 	}
+	
+	
+	/**
+	 * <h1>Write points to files</h1>
+	 * <p>Gets an input of strings and file name and writes the array into a file, one line per string</p>
+	 * @param data to write
+	 * @param file path
+	 * @return if succeeded return 1 
+	 */
+	public static boolean writePointsToFile(Point[] points, String fileName){
+		try {
+			FileWriter writer = new FileWriter(fileName);
+			 writer.write("");
+				for(Point point : points) {
+					writer.append(point.getX() + " " + point.getY());
+				}
+			writer.close();
+		}
+		catch( Exception e ) {
+			throw new RuntimeException();
+		}
+		return true;
+		
+	}
+	
 }

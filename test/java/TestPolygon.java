@@ -16,7 +16,6 @@ public class TestPolygon {
 	 * <p>Polygon used for testing, created from the test array</p>
 	 */
 	Polygon testPoly = new Polygon(testArr);
-	
 
 	/**
 	 * <h1>Test point being a corner of the polygon</h1>

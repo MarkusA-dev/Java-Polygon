@@ -1,7 +1,3 @@
-
-
-import java.util.ArrayList;
-
 public class Main {
 
 	/**
@@ -15,9 +11,9 @@ public class Main {
 		String pointPath = System.getenv("USERPROFILE") + "\\Desktop\\pisteet.txt";
 		String finalPath = System.getenv("USERPROFILE") + "\\Desktop\\selvitys.txt";
 		
-		ArrayList<Point> pointsToTest = FileHandler.readPointsFromFile(pointPath);
+		Point[] pointsToTest = FileHandler.readPointsFromFile(pointPath);
 		Polygon poly = FileHandler.readPolygonFromFile(polyPath);
-		String[] reports = new String[pointsToTest.size()];
+		String[] reports = new String[pointsToTest.length];
 		int i = 0;
 		
 		//Loop through the points and test them, placing a string in the array that will be printed to the file

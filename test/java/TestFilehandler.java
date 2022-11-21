@@ -1,7 +1,6 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestFilehandler {
@@ -16,10 +15,10 @@ public class TestFilehandler {
 		//Paths to the file to read, will not work if USERPROFILE is changed from default
 		String filepath = System.getenv("USERPROFILE") + "\\Desktop\\pisteet.txt";
 		String filepath2 = System.getenv("USERPROFILE") + "\\Desktop\\polygoni.txt";
-		ArrayList<Point> pointArr = FileHandler.readPointsFromFile(filepath);
+		Point[] pointArr = FileHandler.readPointsFromFile(filepath);
 		Polygon poly  = FileHandler.readPolygonFromFile(filepath2);
-		assertEquals(4, poly.points.size());
-		assertEquals(3, pointArr.size());
+		assertEquals(4, poly.points.length);
+		assertEquals(3, pointArr.length);
 	}
 	
 	/**

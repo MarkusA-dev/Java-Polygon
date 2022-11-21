@@ -1,6 +1,3 @@
-
-import java.util.ArrayList;
-
 public class Polygon {
 	
 	/**
@@ -9,7 +6,8 @@ public class Polygon {
 	 * 
 	 * <p>Array of points that make up the polygon</p>
 	 */
-	ArrayList<Point> points = new ArrayList<Point>();
+	
+	Point[] points;
 	
 	
 	
@@ -31,10 +29,10 @@ public class Polygon {
 	 * @param Array of points that make up the polygon
 	 */
 	protected Polygon(int[] pointArray) {
+		points = new Point[pointArray.length/2];
+		int j = 0;
 		for(int i =0; i<pointArray.length-1; i+=2) {
-			Point add = new Point(pointArray[i], pointArray[i+1]);
-			
-			points.add(add);
+			points[j++] = new Point(pointArray[i], pointArray[i+1]);
 		}
 	}
 	
@@ -74,23 +72,23 @@ public class Polygon {
 	 */
 	public possiblePosition pointInsidePolygon(Point point) {
 		//Number will be used for looping, while j and i will be the line to test
-		int number = this.points.size();
+		int number = this.points.length;
 		int j = number-1;
 		boolean c = false;
 		float px = point.getX();
 		float py = point.getY();
 		for(int i = 0; i<number;i++) {
 			//Check if the point matches one of the corner points
-			if(px == points.get(i).getX() && py == points.get(i).getY()) {
+			if(px == points[i].getX() && py == points[i].getY()) {
 				return possiblePosition.CORNER;
 			}
 			
 			//The algorithm I found in the link that is in the javaDoc
-			if((points.get(i).getY() > py) != (points.get(j).getY() > py)
-					&& (px <= (points.get(j).getX() - points.get(i).getX())*(py - points.get(i).getY()) / ( points.get(j).getY() - points.get(i).getY()) + points.get(i).getX())) {
+			if((points[i].getY() > py) != (points[j].getY() > py)
+					&& (px <= (points[j].getX() - points[i].getX())*(py - points[i].getY()) / ( points[j].getY() - points[i].getY()) + points[i].getX())) {
 				c = !c;
 			}
-			else if(isOnLine(point, points.get(i), points.get(j))) {
+			else if(isOnLine(point, points[i], points[j])) {
 				return possiblePosition.ON_EDGE;
 			}
 			j = i;
